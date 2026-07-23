@@ -1,16 +1,27 @@
 # SteamScreen
 A (currently only) Linux tool to copy, convert, organize, and back up Steam screenshots. Works on Steam games and Non-steam games added as shortcuts to Steam.
+
 From this:
+
 `~/.local/share/Steam/userdata/99999999/760/remote/570/screenshots/20260502192826_1.jpg`
+
 To this:
+
 `~/screenshots/Dota 2/20260502192826_1.jpg`
-Installable as both a continuously running service and as a command line tool.
+
+
+## Features
+- Copy your screenshots out of the deep dungeon that is the steamapps userdata folder into clean directories based on game title
+- Optionally copy original files, convert to a compressed webp file, or both
+- Works for all Steam users on a PC or a defined single user
+- Run as a continuous service or as a one-time command line tool
 
 ## Installation
 1. Clone the repo: `git clone steamscreen`
 2. Enter the repo directory: `cd steamscreen`
 3. Allow the Install script to be run: `chmod +x install.sh` (or `chmod +x install-cli.sh`) for the non-service version.
 4. Install: `./install.sh` (`./install-cli.sh`)
+
 ## Configutation
 `settings.py` is a config file to change various settings of the program. After installation it will be located at `~/.config/steamscreen.py`
 
@@ -24,16 +35,19 @@ Installable as both a continuously running service and as a command line tool.
 | `BOTH_ORIGINAL_FOLDER` | In COPY_MODE 2, the directory the original files will be saved to                                                    | `~/steam-screenshots/original` |
 | `LOG_LEVEL`            | The level of detail of the logs. INFO, WARNING, VERBOSE                                                              | `INFO`                         |
 | `RUN_INTERVAL`         | The frequency (in minutes) the running service will re-check for screenshots                                         | `15`                           |
+
 ## Usage
 For a continuously running service:
 1. Edit the config as necessary: `nano ~/.config/steamscreen/settings.py`
 2. Enable the service: `systemctl --user enable steamscreen`
 3. Start the service: `systemctl --user start steamscreen`
 4. Check the status: `systemctl --user status steamscreen`
+
 ##### Editing After First Run
 1. Stop the service: `systemctl --user stop steamscreen`
 2. Edit the config file as necessary: `nano ~/.config/steamscreen/settings.py`
 3. Restart the service: `systemctl --user restart steamscreen`
+
 ## Command Line
 Instead of running the program as a service or editing the settings file, you can run SteamScreen from the terminal:
 - `steamscreen` to run the program with default settings
@@ -50,10 +64,3 @@ Instead of running the program as a service or editing the settings file, you ca
 | `-or, --original` | `BOTH_ORIGINAL_FOLDER`             |
 | `-i, --interval`  | `RUN_INTERVAL`                     |
 | `-l, --loglevel`  | `LOG_LEVEL`                        |
-
-
-## Features
-- Copy your screenshots out of the deep dungeon that is the steamapps userdata folder into clean directories based on game title
-- Optionally copy original files, convert to a compressed webp file, or both
-- Works for all Steam users on a PC or a defined single user
-- Run as a continuous service or as a one-time command line tool
