@@ -1,0 +1,8 @@
+[Unit]
+Description=Steam screenshot management service
+
+[Service]
+ExecStart=%h/.config/steamscreen/.venv/bin/python3 %h/.config/steamscreen/steamscreen.py --recurring
+
+[Install]
+WantedBy=default.target

@@ -1,0 +1,5 @@
+#!/bin/bash
+
+APP_DIR="$HOME/.config/steamscreen"
+
+exec "$APP_DIR/.venv/bin/python" "$APP_DIR/steamscreen.py" "$@"
