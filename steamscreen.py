@@ -91,17 +91,20 @@ def get_libraries():
     logging.info('Checking for all steam library locations...')
     all_libraries = []
     library_vdf_path = STEAM_FOLDER + '/steamapps/libraryfolders.vdf'
-    
-    with open(library_vdf_path, 'r', encoding='UTF-8') as f:
-        data = vdf.load(f)
 
-    libraries = data.get("libraryfolders", {})
-    
-    for entry in libraries.values():
-        path = entry.get('path')
-        logging.info('Found a steam library at: ' + path)
-        all_libraries.append(path)
-    
+    try:            
+        with open(library_vdf_path, 'r', encoding='UTF-8') as f:
+            data = vdf.load(f)
+
+        libraries = data.get("libraryfolders", {})
+        
+        for entry in libraries.values():
+            path = entry.get('path')
+            logging.info('Found a steam library at: ' + path)
+            all_libraries.append(path)
+    except:
+        logging.warning('No libraryfolders file found.')
+        
     return all_libraries
 
 
@@ -117,18 +120,22 @@ def get_screenshots_vdf():
             screenshots_vdf_path = STEAM_FOLDER + '/userdata/' + user + '/760/screenshots.vdf'
 
 
-            with open((screenshots_vdf_path), 'r', encoding='UTF-8') as f:
-                data = vdf.load(f)
+            try:
+                with open((screenshots_vdf_path), 'r', encoding='UTF-8') as f:
+                    data = vdf.load(f)
 
-                # get screenshot list
-                screenshots = data.get('screenshots', {})
-                # get non-steam games list
-                shortcuts = screenshots.get('shortcutnames', {})
-                
-                # Get each game id
-                game_ids = list(screenshots.keys())
+                    # get screenshot list
+                    screenshots = data.get('screenshots', {})
+                    # get non-steam games list
+                    shortcuts = screenshots.get('shortcutnames', {})
+                    
+                    # Get each game id
+                    game_ids = list(screenshots.keys())
 
-            game_ids.remove('shortcutnames')
+                game_ids.remove('shortcutnames')
+            except:
+                logging.warning('No screenshots.vdf found, or screenshots.vdf empty')
+                logging.warning('Perhaps you don\'t have any screenshots yet?')
         except:
             logging.warning('Could not load screenshots.vdf file for user: ' + user)
             continue
