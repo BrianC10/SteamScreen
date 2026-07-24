@@ -100,7 +100,6 @@ def get_libraries():
         
         for entry in libraries.values():
             path = entry.get('path')
-            logging.info('Found a steam library at: ' + path)
             all_libraries.append(path)
     except:
         logging.warning('No libraryfolders file found.')
@@ -116,28 +115,32 @@ def get_screenshots_vdf():
     logging.info('Retrieving game IDs....')
 
     for user in users:
+        game_ids = []
+        shortcuts = []            
         try:
+            
             screenshots_vdf_path = STEAM_FOLDER + '/userdata/' + user + '/760/screenshots.vdf'
 
+            with open((screenshots_vdf_path), 'r', encoding='UTF-8') as f:
+                data = vdf.load(f)
 
-            try:
-                with open((screenshots_vdf_path), 'r', encoding='UTF-8') as f:
-                    data = vdf.load(f)
-
-                    # get screenshot list
-                    screenshots = data.get('screenshots', {})
-                    # get non-steam games list
-                    shortcuts = screenshots.get('shortcutnames', {})
-                    
-                    # Get each game id
-                    game_ids = list(screenshots.keys())
+                # get screenshot list
+                screenshots = data.get('screenshots', {})
+                # get non-steam games list
+                shortcuts = screenshots.get('shortcutnames', {})
+                
+                # Get each game id
+                game_ids = list(screenshots.keys())
 
                 game_ids.remove('shortcutnames')
-            except:
-                logging.warning('No screenshots.vdf found, or screenshots.vdf empty')
-                logging.warning('Perhaps you don\'t have any screenshots yet?')
         except:
             logging.warning('Could not load screenshots.vdf file for user: ' + user)
+            logging.warning('Waiting for next run')
+
+            wait()
+            # Run the program from the start again
+            os.execv(sys.argv[0], sys.argv)
+
             continue
 
     return game_ids, shortcuts
@@ -368,6 +371,10 @@ def copy_files():
     logging.info(str(SCREENSHOT_COUNT) + ' screenshot(s) successfully added to output directory.')
     logging.info('Done!')
     SCREENSHOT_COUNT = 0
+
+def wait(): 
+    sleep(RUN_INTERVAL * 60)
+
     
 # Run the functions as a looping service
 if RUN_AS_SERVICE == True:
@@ -377,7 +384,7 @@ if RUN_AS_SERVICE == True:
         games = match_titles(all_libraries, game_ids)
         copy_files()
         logging.info('Waiting ' + str(RUN_INTERVAL) + ' minutes for next run...')
-        sleep(RUN_INTERVAL * 60)
+        wait()
 
 # Run the functions once
 else:
