@@ -25,9 +25,6 @@ BOTH_ORIGINAL_FOLDER = '~/steam-screenshots/original'
 # Log Level INFO, WARNING, ERROR, VERBOSE, Dedault INFO
 LOG_LEVEL = 'INFO'
 
-# Enable Service mode. Set to 'True' if you want to continuously run
-# the script on a loop
-RUN_AS_SERVICE = False
 
 # Autorun interval in minutes, default 15. This only applies if the script
 # is run in service mode with the '--service' argument
