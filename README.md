@@ -15,9 +15,11 @@ To this:
 - Optionally copy original files, convert to a compressed webp file, or both
 - Works for all Steam users on a PC or a defined single user
 - Run as a continuous service or as a one-time command line tool
+- Uses ACF file structure within Steam directory to parse game titles before falling back to using the Steam API, minimizing API calls
+- Works completely offline for games that are currently installed
 
 ## Dependencies
-The following python dependencies are required. They will be installed automatically by one of the install scripts:
+The following python dependencies are required. They will be installed automatically by either of the install scripts:
 
 - webp: https://pypi.org/project/webp/
 - vdf: https://pypi.org/project/vdf/

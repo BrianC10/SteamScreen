@@ -37,7 +37,14 @@ parser.add_argument('-u', '--user',
 parser.add_argument('-o', '--output', 
                     help='Output directory to copy images to')
 parser.add_argument('-s', '--steam', 
-                    help='The location of you main steam directory i.e. /home/user/.local/share/Steam')
+                    help='The location of your main steam directory i.e. /home/user/.local/share/Steam')
+parser.add_argument('-w', '--webp', 
+                    help='The location webp images will be saved in COPY_MODE 2')
+parser.add_argument('-c', '--copy', 
+                    help='The location original copies will be saved in COPY_MODE 2')
+parser.add_argument('-i', '--interval', 
+                    help='The interval (in minutes) recurring mode will scan for screenshots')
+
 
 
 RUN_AS_SERVICE = False
@@ -49,7 +56,7 @@ if not args['recurring'] == None:
 if not args['mode'] == None:
     COPY_MODE = args['mode']
     logging.info('Running script with flag: mode = ' + str(args['mode']))
-if not args['id'] == None:
+if not args['user'] == None:
     STEAM_USER_ID = args['id']
     logging.info('Running script with flag: id = ' + args['id'])
 if not args['output'] == None:
@@ -58,8 +65,17 @@ if not args['output'] == None:
 if not args['steam'] == None:
     STEAM_FOLDER = args['steam']
     logging.info('Running script with flag: steam = ' + args['steam'])
+if not args['webp'] == None:
+    STEAM_FOLDER = args['steam']
+    logging.info('Running script with flag: webp = ' + args['steam'])
+if not args['copy'] == None:
+    STEAM_FOLDER = args['steam']
+    logging.info('Running script with flag: copy = ' + args['steam'])
+if not args['interval'] == None:
+    STEAM_FOLDER = args['steam']
+    logging.info('Running script with flag: interval = ' + args['steam'])
 
-for k, v in args:
+for k, v in args.items():
     if v != None:
         break
     RUN_AS_SERVICE = True
