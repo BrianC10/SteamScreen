@@ -1,5 +1,5 @@
 # SteamScreen
-A (currently only) Linux tool to copy, convert, organize, and back up Steam screenshots. Works on Steam games and Non-steam games added as shortcuts to Steam.
+A Linux tool to copy, convert, organize, and back up Steam screenshots. Works on Steam games and Non-steam games added as shortcuts to Steam.
 
 From this:
 
@@ -15,6 +15,13 @@ To this:
 - Optionally copy original files, convert to a compressed webp file, or both
 - Works for all Steam users on a PC or a defined single user
 - Run as a continuous service or as a one-time command line tool
+
+## Dependencies
+The following python dependencies are required. They will be installed automatically by one of the install scripts:
+
+- webp: https://pypi.org/project/webp/
+- vdf: https://pypi.org/project/vdf/
+- python-steam-api: https://pypi.org/project/python-steam-api/
 
 ## Installation
 1. Clone the repo: `git clone steamscreen`
