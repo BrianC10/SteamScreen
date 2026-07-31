@@ -66,14 +66,14 @@ if not args['steam'] == None:
     STEAM_FOLDER = args['steam']
     logging.info('Running script with flag: steam = ' + args['steam'])
 if not args['webp'] == None:
-    STEAM_FOLDER = args['steam']
-    logging.info('Running script with flag: webp = ' + args['steam'])
+    BOTH_WEBP_FOLDER = args['webp']
+    logging.info('Running script with flag: webp = ' + args['webp'])
 if not args['copy'] == None:
-    STEAM_FOLDER = args['steam']
-    logging.info('Running script with flag: copy = ' + args['steam'])
+    BOTH_ORIGINAL_FOLDER = args['copy']
+    logging.info('Running script with flag: copy = ' + args['copy'])
 if not args['interval'] == None:
-    STEAM_FOLDER = args['steam']
-    logging.info('Running script with flag: interval = ' + args['steam'])
+    RUN_INTERVAL = args['interval']
+    logging.info('Running script with flag: interval = ' + args['interval'])
 
 for k, v in args.items():
     if v != None:
